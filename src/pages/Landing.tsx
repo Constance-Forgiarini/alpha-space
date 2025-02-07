@@ -1,7 +1,7 @@
-const landing = () => {
-  return (
-    <div>landing</div>
-  )
-}
+//const newsParams = { ordering: "-published_at" };
 
-export default landing
+const landing = () => {
+  return <div>landing</div>;
+};
+
+export default landing;
