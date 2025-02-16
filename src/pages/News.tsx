@@ -1,7 +1,7 @@
-import CardsGrid from "@/components/CardsGrid";
-import Filters from "@/components/Filters";
-import Overview from "@/components/Overview";
-import Title from "@/components/Title";
+import { CardsGrid } from "@/components/Cardsgrid";
+import { Filters } from "@/components/Filters";
+import { Overview } from "@/components/Overview";
+import { Title } from "@/components/Title";
 import { snapiCustomFetch } from "@/utils/customFetch";
 import { NewsResponse } from "@/utils/types";
 import { LoaderFunction, useLoaderData } from "react-router-dom";
