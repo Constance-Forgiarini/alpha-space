@@ -11,7 +11,7 @@ const Filters = ({
   mode: string;
 }): ReactNode => {
   return (
-    <Form>
+    <Form className="my-6 py-2 flex flex-col gap-2">
       <FormInput
         type="search"
         label="Search for"
@@ -19,7 +19,7 @@ const Filters = ({
         defaultValue={term}
         placeholder="ms', 'neutron star' 'starship'"
       />
-      <div>
+      <div className="self-end flex gap-2">
         <Button type="submit" size="lg">
           Search
         </Button>

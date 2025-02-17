@@ -1,9 +1,13 @@
-import { CardsGrid } from "@/components/Cardsgrid";
-import { Filters } from "@/components/Filters";
-import { Overview } from "@/components/Overview";
-import { Title } from "@/components/Title";
+import CardsGrid from "@/components/CardsGrid";
+import Filters from "@/components/Filters";
+import Overview from "@/components/Overview";
+import Title from "@/components/Title";
 import { snapiCustomFetch } from "@/utils/customFetch";
-import { NewsResponse } from "@/utils/types";
+import {
+  FiltersParams,
+  NewsResponse,
+  NewsResponseWithParams,
+} from "@/utils/types";
 import { LoaderFunction, useLoaderData } from "react-router-dom";
 
 const newsParams = {
@@ -12,33 +16,38 @@ const newsParams = {
   ordering: "-published_at",
 };
 
-export const newsPageLoader: LoaderFunction =
-  async (): Promise<NewsResponse | null> => {
-    try {
-      const formattedParams = {
-        ...newsParams,
-      };
-      const response = await snapiCustomFetch.get<NewsResponse>("", {
-        params: formattedParams,
-      });
-      return response.data;
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
-  };
+export const newsPageLoader: LoaderFunction = async ({
+  request,
+}): Promise<NewsResponseWithParams | null> => {
+  try {
+    const params: FiltersParams = Object.fromEntries([
+      ...new URL(request.url).searchParams.entries(),
+    ]);
+    const formattedParams = {
+      search: params.term ? params.term : "",
+      ...newsParams,
+    };
+    const response = await snapiCustomFetch.get<NewsResponse>("", {
+      params: formattedParams,
+    });
+    return { response: response.data, params };
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
 
 const News = () => {
-  const data = useLoaderData() as NewsResponse;
-  const { results } = data;
-  console.log(results);
+  const data = useLoaderData() as NewsResponseWithParams;
+  const { response, params } = data;
+  console.log(response);
 
   return (
     <section className="section">
       <Title text="All news" />
-      <Filters term="term" mode="news" />
+      <Filters term={params.term} mode="news" />
       <Overview objects={data} />
-      <CardsGrid objects={results} mode="news-page" />
+      <CardsGrid objects={response} mode="news-page" />
     </section>
   );
 };
