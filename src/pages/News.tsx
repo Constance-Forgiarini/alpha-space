@@ -45,7 +45,7 @@ const News = () => {
   return (
     <section className="section">
       <Title text="All news" />
-      <Filters term={params.term} mode="news" />
+      <Filters term={params.term} mode="news" key={params.term} />
       <Overview objects={data} />
       <CardsGrid objects={response} mode="news-page" />
     </section>

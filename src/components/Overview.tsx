@@ -1,12 +1,19 @@
-import { NewsResponseWithParams } from "@/utils/types";
+import { HubbleImagesResponse, NewsResponseWithParams } from "@/utils/types";
 import { ReactNode } from "react";
 
 const Overview = ({
   objects,
 }: {
-  objects: NewsResponseWithParams;
+  objects: NewsResponseWithParams | HubbleImagesResponse;
 }): ReactNode => {
-  const number: number = objects.response.count;
+  let number: number;
+  //type guard:
+  if ("total_count" in objects) {
+    number = objects.total_count;
+  } else {
+    number = objects.response.count;
+  }
+
   return <div className="my-6 text-xl">{number} matches</div>;
 };
 export default Overview;
