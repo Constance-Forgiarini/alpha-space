@@ -95,4 +95,11 @@ body {
   .section {
     @apply test min-h-[100vh] align-element px-0 py-12;
   }
+  .slider-card {
+    transition: all 0.2s ease-out;
+  }
+  .slider-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 0.75);
+  }
 }

@@ -21,7 +21,12 @@ const router = createBrowserRouter([
       { path: "webb", element: <Webb /> },
       { path: "spacex", element: <SpaceX /> },
       { path: "apod", element: <Apod /> },
-      { path: "hubble", element: <Hubble />, loader: hubblePageLoader },
+      {
+        path: "hubble",
+        element: <Hubble />,
+        loader: hubblePageLoader,
+        errorElement: <ErrorElement />,
+      },
     ],
   },
 ]);

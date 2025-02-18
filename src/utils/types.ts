@@ -57,3 +57,8 @@ export type HubbleImagesResponse = {
   total_count: number;
   results: HubbleImage[];
 };
+
+export type HubbleImagesResponseWithParams = {
+  response: HubbleImagesResponse;
+  params: FiltersParams;
+};
